@@ -19,8 +19,10 @@ function main()
   drawGoldenRatioGraph(context, 20);
   for(let n of fibonacci(20))
   {
-    console.log(n);
+    //console.log(n);
   }
+
+  console.log(1 + oneOverOnePlus(100));
 }
 
 // generator for fibonacci numbers
@@ -60,7 +62,6 @@ function drawGoldenRatioGraph(ctx, range)
     //ctx.moveTo(0,0);
     for(let n of goldenRatio(range))
     {
-      console.log(n);
       n*=200;
       ctx.lineTo(index, n);
       ctx.moveTo(index, n);
@@ -68,5 +69,17 @@ function drawGoldenRatioGraph(ctx, range)
       index += canvas.width/range;
     }
     ctx.stroke();
+  }
+}
+
+function oneOverOnePlus(range)
+{
+  if(range > 0)
+  {
+    return 1/(1 + oneOverOnePlus(--range));
+  }
+  else
+  {
+    return 0;
   }
 }
