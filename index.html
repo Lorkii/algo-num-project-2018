@@ -6,6 +6,8 @@
     <script type="text/javascript" src="script.js"></script>
   </head>
   <body onload="setup();">
-    <canvas id="canvas" width="500" height="500"></canvas>
+    <canvas id="canvas" width="500" height="500"></canvas><br>
+    <input id="inputGoldenRatio" type="range" style="width: 500px" name="" value="0.618" min="0.001" max="0.999" step="0.001" onchange="actionOnRangeMove()">
+    <h3 id="goldenRationDisplay">0.618</h3>
   </body>
 </html>
