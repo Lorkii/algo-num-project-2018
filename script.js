@@ -17,8 +17,8 @@ function main()
 {
   //console.log = function(){};
   //drawGoldenRatioGraph(context, 20);
-  drawGoldenFlower(context, oneOverOnePlus(25), 200, 10);
-  console.log(oneOverOnePlus(25));
+  drawGoldenFlower(context, oneOverOnePlus(40), 2000, 3);
+  console.log(oneOverOnePlus(40));
 }
 
 // generator for fibonacci numbers
@@ -48,10 +48,34 @@ function* goldenRatioWithFibonacci(range)
   }
 }
 
+globalLoop = undefined;
+globalNumber = 0;
+globalCmpt = 0;
+globalIsRunning = false;
+function autoMoveFlower()
+{
+  globalIsRunning = true;
+  document.getElementById("goldenRationDisplay").innerHTML = globalNumber;
+  document.getElementById("inputGoldenRatio").value = globalNumber;
+  drawGoldenFlower(context, globalNumber, 2000, 3);
+  globalNumber = 1 / (1 + globalNumber);
+  globalCmpt++;
+  if (globalCmpt > 40) {
+    globalNumber = 0;
+    globalCmpt = 0;
+    return;
+  }
+  setTimeout(function() {
+    autoMoveFlower();
+    //window.requestAnimationFrame(autoMoveFlower);
+  }, 400);
+}
+
 function actionOnRangeMove()
 {
-  newNumber = document.getElementById("inputGoldenRatio").value;
-  drawGoldenFlower(context, newNumber, 200, 15);
+  let newNumber = document.getElementById("inputGoldenRatio").value;
+  drawGoldenFlower(context, newNumber, 2000, 3);
+  document.getElementById("goldenRationDisplay").innerHTML = newNumber;
 }
 
 function drawGoldenFlower(ctx, number, range, radius)
@@ -59,23 +83,25 @@ function drawGoldenFlower(ctx, number, range, radius)
   ctx.save();
   ctx.clearRect(0 ,0 ,canvas.width, canvas.height);
   ctx.translate(canvas.width/2, canvas.height/2)
-  dr = 1;
-  angle = 0;
+  let n = 1;
+  let angle = 0;
   while(range > 0)
   {
-    centerX = dr*Math.cos(angle);
-    centerY = dr*Math.sin(angle);
+    let dr = 1.618*radius*Math.sqrt(n);
+
+    let centerX = dr*Math.cos(angle);
+    let centerY = dr*Math.sin(angle);
 
     ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'yellow';
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = '#FFD700';
     ctx.fill();
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 0.3;
     ctx.strokeStyle = '#003300';
     ctx.stroke();
 
     angle += number*Math.PI*2;
-    dr += 1.2;
+    n++;
     range--;
   }
   ctx.restore();
@@ -111,7 +137,7 @@ function* goldenRatioFraction(range)
   }
 }
 
-//if range=25, precise enough
+//if range == 40, precise enough
 function oneOverOnePlus(range)
 {
   if(range > 0)
