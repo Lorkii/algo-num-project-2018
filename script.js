@@ -2,6 +2,9 @@
 let canvas;
 let context;
 
+const NUMBER_OF_CIRCLES = 5000;
+const RADIUS_OF_CIRCLES = 2;
+
 function setup()
 {
   if(context == undefined)
@@ -17,7 +20,7 @@ function main()
 {
   //console.log = function(){};
   //drawGoldenRatioGraph(context, 20);
-  drawGoldenFlower(context, oneOverOnePlus(40), 2000, 3);
+  drawGoldenFlower(context, oneOverOnePlus(40), NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
   console.log(oneOverOnePlus(40));
 }
 
@@ -48,33 +51,56 @@ function* goldenRatioWithFibonacci(range)
   }
 }
 
-globalLoop = undefined;
 globalNumber = 0;
 globalCmpt = 0;
-globalIsRunning = false;
-function autoMoveFlower()
+function autoMoveToGoldenRatio()
 {
-  globalIsRunning = true;
-  document.getElementById("goldenRationDisplay").innerHTML = globalNumber;
-  document.getElementById("inputGoldenRatio").value = globalNumber;
-  drawGoldenFlower(context, globalNumber, 2000, 3);
+  updateRangeDisplay(globalNumber);
+  drawGoldenFlower(context, globalNumber, NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
   globalNumber = 1 / (1 + globalNumber);
   globalCmpt++;
   if (globalCmpt > 40) {
-    globalNumber = 0;
-    globalCmpt = 0;
+    //reset of the global variables
+    resetGolbalVariables();
     return;
   }
   setTimeout(function() {
-    autoMoveFlower();
+    autoMoveToGoldenRatio();
     //window.requestAnimationFrame(autoMoveFlower);
-  }, 400);
+  }, 600);
 }
+
+function resetGolbalVariables()
+{
+  globalNumber = 0;
+  globalCmpt = 0;
+}
+
+function updateRangeDisplay(number)
+{
+  document.getElementById("goldenRationDisplay").innerHTML = number;
+  document.getElementById("inputGoldenRatio").value = number;
+}
+
+function fromAtoBwithStep(a,b,step)
+{
+  if(a < b)
+  {
+    updateRangeDisplay(a);
+    drawGoldenFlower(context, a, NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
+    //setTimeout(function(){fromAtoBwithStep(a+step,b,step)}, 200);
+    window.requestAnimationFrame(function(){fromAtoBwithStep(a+step,b,step)});
+  }
+}
+
+
+
+
 
 function actionOnRangeMove()
 {
   let newNumber = document.getElementById("inputGoldenRatio").value;
-  drawGoldenFlower(context, newNumber, 2000, 3);
+  drawGoldenFlower(context, newNumber, NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
   document.getElementById("goldenRationDisplay").innerHTML = newNumber;
 }
 

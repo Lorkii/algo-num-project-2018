@@ -3,12 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>Algo_Num - Projet Perso - Célien Donzé</title>
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="script.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        showMathMenu: false,
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+      });
+      </script>
   </head>
   <body onload="setup();">
+    <div id="mathFormula">\({ 1 \over {1 + {1 \over {1 + {1 \over {1 + {1 \over {1 + {1 \over {1 + {1 \over ...}}}}}}}}}}}\)</div>
     <canvas id="canvas" width="500" height="500"></canvas><br>
-    <input id="inputGoldenRatio" type="range" style="width: 500px" value="0.618" min="0.001" max="0.999" step="0.001" oninput="actionOnRangeMove()">
+    <input id="inputGoldenRatio" type="range" style="width: 500px" value="0.618" min="0" max="1" step="0.001" oninput="actionOnRangeMove()">
     <h3 id="goldenRationDisplay">0.618</h3>
-    <button type="button" onclick="autoMoveFlower(0);">Auto move to Golden Ratio</button>
+    <button type="button" onclick="autoMoveToGoldenRatio();">Auto move to Golden Ratio</button>
+    <button type="button" onclick="fromAtoBwithStep(0.61764, 0.618035, 0.000001);">Iterate between two values with step</button>
   </body>
 </html>
