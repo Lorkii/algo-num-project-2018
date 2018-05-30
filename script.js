@@ -68,7 +68,7 @@ function autoMoveFlower()
   setTimeout(function() {
     autoMoveFlower();
     //window.requestAnimationFrame(autoMoveFlower);
-  }, 400);
+  }, 4000);
 }
 
 function actionOnRangeMove()
