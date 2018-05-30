@@ -56,6 +56,7 @@ globalCmpt = 0;
 function autoMoveToGoldenRatio()
 {
   updateRangeDisplay(globalNumber);
+  writeFormula(globalCmpt);
   drawGoldenFlower(context, globalNumber, NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
   globalNumber = 1 / (1 + globalNumber);
   globalCmpt++;
@@ -67,7 +68,7 @@ function autoMoveToGoldenRatio()
   setTimeout(function() {
     autoMoveToGoldenRatio();
     //window.requestAnimationFrame(autoMoveFlower);
-  }, 600);
+  }, 1000);
 }
 
 function resetGolbalVariables()
@@ -88,9 +89,32 @@ function fromAtoBwithStep(a,b,step)
   {
     updateRangeDisplay(a);
     drawGoldenFlower(context, a, NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
-    //setTimeout(function(){fromAtoBwithStep(a+step,b,step)}, 200);
     window.requestAnimationFrame(function(){fromAtoBwithStep(a+step,b,step)});
   }
+}
+
+function writeFormula(step)
+{
+  formulaIncr = " + {1 \\over {1";
+  formulaBase = "\\({ 1 \\over {1 ";
+  formulaEnd = "}}";
+  formula = "";
+  if(step > 0)
+  {
+    formula = formulaBase;
+    for (var i = 1; i < step; i++) {
+      formula += formulaIncr;
+      formulaEnd += "}}";
+    }
+    formula += formulaEnd + "\\)";
+  }
+  document.getElementById("mathFormula").innerHTML = formula;
+  document.getElementById("mathFormula").style.visibility = "hidden";
+  document.getElementById("mathFormula").style.fontSize = (60-step)+"px";
+  MathJax.Hub.Queue(["Typeset",MathJax.Hub,"mathFormula"]);
+  MathJax.Hub.Queue(function () {
+    document.getElementById("mathFormula").style.visibility = "visible";
+  });
 }
 
 
@@ -129,6 +153,8 @@ function drawGoldenFlower(ctx, number, range, radius)
   }
   ctx.restore();
 }
+
+
 
 function drawGoldenRatioGraph(ctx, range)
 {

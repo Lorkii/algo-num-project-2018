@@ -1,6 +1,20 @@
+body {
+
+}
+
 #mathFormula {
-  float: right;
+  display: inline-block;
+  vertical-align: top;
   width: 500px;
   height: 500px;
-  font-size: 50px;
+  font-size: 60px;
+}
+
+#canvas {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#goldenRationDisplayWrapper {
+  font-size: 40px;
 }

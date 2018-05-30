@@ -15,10 +15,13 @@
       </script>
   </head>
   <body onload="setup();">
+    <canvas id="canvas" width="500" height="500"></canvas>
     <div id="mathFormula">\({ 1 \over {1 + {1 \over {1 + {1 \over {1 + {1 \over {1 + {1 \over {1 + {1 \over ...}}}}}}}}}}}\)</div>
-    <canvas id="canvas" width="500" height="500"></canvas><br>
+    <br>
     <input id="inputGoldenRatio" type="range" style="width: 500px" value="0.618" min="0" max="1" step="0.001" oninput="actionOnRangeMove()">
-    <h3 id="goldenRationDisplay">0.618</h3>
+    <br>
+    <p id="goldenRationDisplayWrapper"><span>\( \phi = \)</span> <span id="goldenRationDisplay">0.618</span></p>
+    <br>
     <button type="button" onclick="autoMoveToGoldenRatio();">Auto move to Golden Ratio</button>
     <button type="button" onclick="fromAtoBwithStep(0.61764, 0.618035, 0.000001);">Iterate between two values with step</button>
   </body>
