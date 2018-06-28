@@ -18,10 +18,12 @@ function setup()
 
 function main()
 {
-  //console.log = function(){};
-  //drawGoldenRatioGraph(context, 20);
+  document.getElementById("displayInfiniteFraction").innerHTML = (1 + oneOverOnePlus(40));
+  document.getElementById("displayFibonacci").innerHTML = (1 + getGoldenRatioWithFibonacci(40));
+  document.getElementById("displaySqrt5").innerHTML = ((1 + Math.sqrt(5)) / 2);
+  document.getElementById("displaySinus54").innerHTML = (2 * Math.sin(54 * (Math.PI/180)));
+
   drawGoldenFlower(context, oneOverOnePlus(40), NUMBER_OF_CIRCLES, RADIUS_OF_CIRCLES);
-  console.log(oneOverOnePlus(40));
 }
 
 // generator for fibonacci numbers
@@ -93,10 +95,19 @@ function fromAtoBwithStep(a,b,step)
   }
 }
 
+function onClickButtonGo()
+{
+  let start = parseFloat(document.getElementById("start").value);
+  let end = parseFloat(document.getElementById("end").value);
+  let step = parseFloat(document.getElementById("step").value);
+
+  fromAtoBwithStep(start, end, step);
+}
+
 function writeFormula(step)
 {
   formulaIncr = " + {1 \\over {1";
-  formulaBase = "\\({ 1 \\over {1 ";
+  formulaBase = "\\( \\phi \\approx { 1 \\over {1 ";
   formulaEnd = "}}";
   formula = "";
   if(step > 0)
@@ -110,7 +121,7 @@ function writeFormula(step)
   }
   document.getElementById("mathFormula").innerHTML = formula;
   document.getElementById("mathFormula").style.visibility = "hidden";
-  document.getElementById("mathFormula").style.fontSize = (60-step)+"px";
+  document.getElementById("mathFormula").style.fontSize = (50-step)+"px";
   MathJax.Hub.Queue(["Typeset",MathJax.Hub,"mathFormula"]);
   MathJax.Hub.Queue(function () {
     document.getElementById("mathFormula").style.visibility = "visible";
@@ -154,8 +165,6 @@ function drawGoldenFlower(ctx, number, range, radius)
   ctx.restore();
 }
 
-
-
 function drawGoldenRatioGraph(ctx, range)
 {
   if(ctx != undefined)
@@ -184,6 +193,13 @@ function* goldenRatioFraction(range)
     x = 1/(1+x);
     yield x;
   }
+}
+
+function getGoldenRatioWithFibonacci(steps)
+{
+  let n = 0;
+  for (n of goldenRatioFraction(steps)){}
+  return n;
 }
 
 //if range == 40, precise enough
