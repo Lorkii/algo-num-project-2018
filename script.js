@@ -2,7 +2,7 @@
 let canvas;
 let context;
 
-const NUMBER_OF_CIRCLES = 5000;
+const NUMBER_OF_CIRCLES = 4000;
 const RADIUS_OF_CIRCLES = 2;
 
 function setup()
